@@ -8,7 +8,7 @@ function editNav() {
 }
 
 // DOM Elements
-const formSection = document.querySelector(".form-section");
+const modalSection = document.querySelector(".modal-section");
 const signupBtn = document.querySelectorAll(".btn-signup");
 const formData = document.querySelectorAll(".formData");
 
@@ -17,7 +17,7 @@ signupBtn.forEach((btn) => btn.addEventListener("click", launchForm));
 
 // launch modal form
 function launchForm() {
-  formSection.style.display = "block";
+  modalSection.style.display = "block";
 }
 
 

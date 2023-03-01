@@ -100,22 +100,7 @@ footer {
 
 
 /* FORM SECTION*/
-
-.button {
-  background: #fe142f;
-  margin-top: 0.5em;
-  padding: 1em;
-  color: #fff;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.button:hover {
-  background: #3876ac;
-}
-
-.form-section {
+.modal-section {
   /* display: none; */
   position: fixed;
   z-index: 1;
@@ -127,7 +112,7 @@ footer {
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.form-section__form-body {
+.modal-section__form-body {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -263,6 +248,20 @@ input[data-error]::after {
   top: 19%;
 }
 
+.button {
+  background: #fe142f;
+  margin-top: 0.5em;
+  padding: 1em;
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background: #3876ac;
+}
+
 .btn-submit{
   background: #fe142f;
   display: block;
@@ -274,6 +273,12 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
 
 /* custom select styles */
 .custom-select {
@@ -348,6 +353,13 @@ input[data-error]::after {
   font-weight: normal;
   font-size: 16px;
 }
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+/*////////////////////////////////////////////*/
+
 
 /* MAIN SECTION */
 .main-section {
