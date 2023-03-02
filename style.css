@@ -31,6 +31,33 @@ img {
   padding-right: 1rem;
 }
 
+.btn {
+  background: #fe142f;
+  color: #fff;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn:hover {
+  background: #3876ac;
+}
+
+.btn--signup {
+  outline: none;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  padding: 15px 23px;
+  margin: 59px 0 0;
+}
+
+.btn--submit {
+  display: block;
+  margin: 0 auto;
+  font-size: 1rem;
+  padding: 12px 82px;
+}
+
 .header {
   overflow: hidden;
   margin: 3.5%;
@@ -99,7 +126,7 @@ footer {
 
 
 
-/* FORM SECTION*/
+/* MODAL SECTION*/
 .modal-section {
   display: none;
   position: fixed;
@@ -126,6 +153,10 @@ footer {
   padding: 34px 3%;
 }
 
+.show {
+  display: block;
+}
+
 label {
   font-family: var(--font-default);
   font-size: 17px;
@@ -149,43 +180,44 @@ input {
   height: 48px;
 }
 
+/* error message appears only with data-error-visible attribute in 
+formData div + input border red*/
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 0.6em;
   color: #e54858;
   display: block;
   margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: right;
+  margin-bottom: 17px;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
 }
 
-.formData[data-error-visible="true"]::after {
+.formData[data-error-visible]::after {
   opacity: 1;
 }
 
-.formData[data-error-visible="true"] .text-control {
+.formData[data-error-visible] .text-control {
   border: 2px solid #e54858;
 }
 
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
-.checkbox-label,
-.checkbox2-label {
+/* checkbox section */
+.checkbox-input {
+  display: none;
+}
+
+.cb-tournament-label,
+.cb-CGU-newsLetter-label {
   position: relative;
   margin-left: 36px;
   font-size: 12px;
   font-weight: normal;
 }
 
-.checkbox-label .checkbox-icon,
-.checkbox2-label .checkbox-icon {
+.cb-tournament-label .checkbox-icon,
+.cb-CGU-newsLetter-label .checkbox-icon {
   display: block;
   width: 20px;
   height: 20px;
@@ -199,8 +231,8 @@ input[data-error]::after {
   transition: 0.3s;
 }
 
-.checkbox-label .checkbox-icon::after,
-.checkbox2-label .checkbox-icon::after {
+.cb-tournament-label .checkbox-icon::after,
+.cb-CGU-newsLetter-label .checkbox-icon::after {
   content: "";
   width: 13px;
   height: 13px;
@@ -216,26 +248,8 @@ input[data-error]::after {
   opacity: 0;
 }
 
-.checkbox-input {
-  display: none;
-}
 
-.checkbox-input:checked+.checkbox-label .checkbox-icon::after,
-.checkbox-input:checked+.checkbox2-label .checkbox-icon::after {
-  opacity: 1;
-}
-
-.checkbox-input:checked+.checkbox2-label .checkbox-icon {
-  background: #279e7a;
-}
-
-.checkbox2-label .checkbox-icon {
-  border-radius: 4px;
-  border: 0;
-  background: #c4c4c4;
-}
-
-.checkbox2-label .checkbox-icon::after {
+.cb-CGU-newsLetter-label .checkbox-icon::after {
   width: 7px;
   height: 4px;
   border-radius: 2px;
@@ -248,33 +262,22 @@ input[data-error]::after {
   top: 19%;
 }
 
-.button {
-  background: #fe142f;
-  margin-top: 0.5em;
-  padding: 1em;
-  color: #fff;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.button:hover {
-  background: #3876ac;
-}
-
-.btn-submit{
-  background: #fe142f;
-  display: block;
-  margin: 0 auto;
-  border-radius: 7px;
-  font-size: 1rem;
-  padding: 12px 82px;
-  color: #fff;
-  cursor: pointer;
+.cb-CGU-newsLetter-label .checkbox-icon {
+  border-radius: 4px;
   border: 0;
+  background: #c4c4c4;
 }
 
-.close {
+.checkbox-input:checked+.cb-tournament-label .checkbox-icon::after,
+.checkbox-input:checked+.cb-CGU-newsLetter-label .checkbox-icon::after {
+  opacity: 1;
+}
+
+.checkbox-input:checked+.cb-CGU-newsLetter-label .checkbox-icon {
+  background: #279e7a;
+}
+
+.close-form {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -284,8 +287,9 @@ input[data-error]::after {
   cursor: pointer;
   transform: scale(0.7);
 }
-.close:before,
-.close:after {
+
+.close-form::before,
+.close-form::after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -293,12 +297,15 @@ input[data-error]::after {
   width: 3px;
   background-color: #fff;
 }
-.close:before {
+
+.close-form::before {
   transform: rotate(45deg);
 }
-.close:after {
+
+.close-form::after {
   transform: rotate(-45deg);
 }
+
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
@@ -379,6 +386,7 @@ input[data-error]::after {
   font-weight: normal;
   font-size: 16px;
 }
+
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
@@ -426,23 +434,6 @@ input[data-error]::after {
   padding: 0;
 }
 
-.btn-signup {
-  background: #fe142f;
-  color: #fff;
-  border-radius: 1rem;
-  cursor: pointer;
-  outline: none;
-  text-transform: capitalize;
-  font-size: 1.3rem;
-  padding: 15px 23px;
-  margin: 59px 0 0;
-  border: 0;
-}
-
-.btn-signup:hover {
-  background: #3876ac;
-}
-
 .main-section__img {
   grid-column: span 4;
 }
@@ -454,7 +445,7 @@ input[data-error]::after {
   padding: 0;
 }
 
-.main-section>.btn-signup {
+.main-section>.btn--signup {
   display: none;
 }
 
@@ -494,7 +485,7 @@ input[data-error]::after {
     margin-top: 40px;
   }
 
-  .main-section>.btn-signup {
+  .main-section>.btn--signup {
     display: block;
     margin: 32px auto 10px;
     padding: 12px 35px;
@@ -531,7 +522,7 @@ input[data-error]::after {
     display: block;
     text-align: left;
   }
-} 
+}
 
 @keyframes formOpen {
   from {
