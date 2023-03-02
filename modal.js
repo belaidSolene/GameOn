@@ -46,7 +46,7 @@ const checkboxCGU = document.getElementById("checkboxCGU");
 // Validation Form
 form.addEventListener('submit', (event) => {
   event.preventDefault;
-  // close modal ?? if yes use the function else delete the function and put the line direct in the event
+  // close form --> appears thank message --> close thank message and modal
 });
 
 const dataError = document.getElementById("magic");
