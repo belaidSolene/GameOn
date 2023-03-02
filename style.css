@@ -184,11 +184,11 @@ input {
 formData div + input border red*/
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.6em;
+  font-size: 0.5em;
   color: #e54858;
   display: block;
   margin-top: 7px;
-  margin-bottom: 17px;
+  margin-bottom: 7px;
   text-align: left;
   line-height: 0.3;
   opacity: 0;
