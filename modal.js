@@ -33,7 +33,8 @@ function closeModal() {
 }
 
 
-// fromData div for Validation Form
+// Form Element for Validation Form
+const form = document.querySelector("#bookingGameEvent");
 const allFormData = document.querySelectorAll(".formData");
 
 // Validation Form
@@ -132,6 +133,5 @@ function validateInput(fieldForm) {
 
 function setDataErrorVisibleOnFormData(i) {
   // objectif : ajouter l'attribut data-error-visible à la div formData passé en argument
-
   allFormData[i].setAttribute('data-error-visible', true);
 }
