@@ -195,11 +195,11 @@ formData div + input border red*/
   transition: 0.3s;
 }
 
-.formData[data-error-visible]::after {
+.formData[data-error-visible="true"]::after {
   opacity: 1;
 }
 
-.formData[data-error-visible] .text-control {
+.formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
 

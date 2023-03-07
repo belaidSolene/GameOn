@@ -19,7 +19,7 @@ const firstName = document.getElementById("firstName");
 signupBtn.forEach((btn) => btn.addEventListener("click", lauchModal));
 
 // close modal with button 
-closeModalBtn.addEventListener("click", closeModal(modalSection));
+closeModalBtn.addEventListener("click", closeModal);
 
 // launch modal modal
 function lauchModal() {
@@ -28,20 +28,13 @@ function lauchModal() {
 }
 
 // close modal
-function closeModal(element) {
- element.classList.remove("show");
+function closeModal() {
+  modalSection.classList.remove("show");
 }
 
 
-// Form Elements for Validation Form
-const formData = document.querySelectorAll(".formData");
-
-const form = document.getElementById("bookingGameEvent");
-const lastName = document.getElementById("lastName");
-const email = document.getElementById("email");
-const birthDate = document.getElementById("birthDate");
-const numberGameJoin = document.getElementById("numberGameJoin");
-const checkboxCGU = document.getElementById("checkboxCGU");
+// fromData div for Validation Form
+const allFormData = document.querySelectorAll(".formData");
 
 // Validation Form
 form.addEventListener('submit', (event) => {
@@ -49,16 +42,96 @@ form.addEventListener('submit', (event) => {
   // close form --> appears thank message --> close thank message and modal
 });
 
-const dataError = document.getElementById("magic");
 
-dataError.addEventListener('click', () => {
-  for (const div of formData) {
-    console.log(div); // affiche toutes les div formData
+class FieldForm {
+  // constructor(indiceParent, idInput, valueInput) {
+  constructor(indiceParent, field) {
+    this.indiceParent = indiceParent;
+    this.field = field;
+    // this.idInput = idInput;
+    // this.valueInput = valueInput;
   }
-  // Possible d'ajouter data-error-visible 
-  // comment déterminer que c'est sur la bonne div qu'il la modifie ??
-  // il faut
-  // found la div dont l'enfant "input" à "id === falseElement.id"
-  //et ajouter l'attribut data-eror-visible à la div
+}
+
+//Experience to make form validation
+const dataError = document.getElementById("magic"); // bouton/texte pour lancer les fonctions
+dataError.addEventListener('click', () => {
+
+  const tabFieldsForm = getFieldsForm();
+
+  for (const fieldForm of tabFieldsForm) {
+    validateInput(fieldForm);
+  }
 });
 
+function getFieldsForm() {
+  // objectif : Récupérer dans un tableau des objets ChampForm pour chaque input du formulaire bookingGameEvent \\
+  let tabInput = [];
+
+  for (const i in allFormData) {
+    const childrenFormData = allFormData[i].childNodes;
+
+    if (childrenFormData != null) {
+      for (const child of childrenFormData) {
+
+        if (child.nodeName === 'INPUT') { //vérifié s'ils ont l'attribut required également ??
+          //console.log('une réussite : ', child);
+          tabInput.push(new FieldForm(i, child));
+        }
+      }
+    }
+  }
+  // console.log(tabInput);
+  return tabInput;
+}
+
+
+function validateInput(fieldForm) {
+  // objectif : Déterminer quel input passé en argument pour effectuer par la suite la validation nécessaire
+  let nameInput = fieldForm.field.name;
+
+  switch (nameInput) {
+    case 'firstName':
+      console.log(nameInput, ' : test min 2 lettres');
+      break;
+
+    case 'lastName':
+      console.log(nameInput, ' : test min 2 lettres');
+      break;
+
+    case 'email':
+      console.log(nameInput, ' : hfdgeziyu@hjfgeuy.fhr');
+      break;
+
+    case 'birthDate':
+      console.log(nameInput, ' : a quel point t\'es vieux ? min age ??');
+      break;
+
+    case 'numberGameJoin':
+      console.log(nameInput, ' : important de connaître votre expérience');
+      break;
+
+    case 'numberGameJoin':
+      console.log(nameInput, ' : important de connaître votre expérience');
+      break;
+
+    case 'location':
+      console.log(nameInput, ' : faut bidouillé avec celui-ci ils sont six');
+      break;
+
+    case 'checkboxCGU':
+      console.log(nameInput, ' : LE TRUC QUI DOIT A TOUT PRIX ETRE VALIDE');
+      setDataErrorVisibleOnFormData(fieldForm.indiceParent);
+      break;
+
+    default:
+      //inutile si vérification de 'required' au préalable
+      break;
+  }
+}
+
+function setDataErrorVisibleOnFormData(i) {
+  // objectif : ajouter l'attribut data-error-visible à la div formData passé en argument
+
+  allFormData[i].setAttribute('data-error-visible', true);
+}
