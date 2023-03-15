@@ -7,12 +7,11 @@ function editNav() {
   }
 }
 
+
 // Modal Elements for Modal Events
 const modalSection = document.querySelector(".modal-section");
 const signupBtn = document.querySelectorAll(".btn--signup");
 const closeModalBtn = document.querySelector(".close-form");
-const formBody = document.querySelector(".modal-section__form-body");
-const firstName = document.getElementById("firstName");
 
 // Modal Events
 // launch modal event
@@ -24,7 +23,6 @@ closeModalBtn.addEventListener("click", closeModal);
 // launch modal modal
 function lauchModal() {
   modalSection.className += " show";
-  firstName.focus(); // focus on firstName
 }
 
 // close modal
@@ -32,106 +30,176 @@ function closeModal() {
   modalSection.classList.remove("show");
 }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 // Form Element for Validation Form
 const form = document.querySelector("#bookingGameEvent");
-const allFormData = document.querySelectorAll(".formData");
+
 
 // Validation Form
 form.addEventListener('submit', (event) => {
   event.preventDefault;
   // close form --> appears thank message --> close thank message and modal
 });
-
-
-class FieldForm {
-  // constructor(indiceParent, idInput, valueInput) {
-  constructor(indiceParent, field) {
-    this.indiceParent = indiceParent;
-    this.field = field;
-    // this.idInput = idInput;
-    // this.valueInput = valueInput;
-  }
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Experience to make form validation
 const dataError = document.getElementById("magic"); // bouton/texte pour lancer les fonctions
 dataError.addEventListener('click', () => {
+  const allFormData = document.querySelectorAll(".formData");
 
-  const tabFieldsForm = getFieldsForm();
+  const tabFieldsForm = getFieldsForm(allFormData);
 
   for (const fieldForm of tabFieldsForm) {
-    validateInput(fieldForm);
+    validateInput(fieldForm, allFormData);
   }
 });
 
-function getFieldsForm() {
-  // objectif : Récupérer dans un tableau des objets ChampForm pour chaque input du formulaire bookingGameEvent \\
+  // objectif : Récupérer dans un tableau chaque input du formulaire bookingGameEvent \\
+function getFieldsForm(allFormData) {
+    
   let tabInput = [];
+  let tabRadio = [];
 
-  for (const i in allFormData) {
-    const childrenFormData = allFormData[i].childNodes;
+  for (const div of allFormData) {
+    const childrenFormData = div.childNodes;
 
     if (childrenFormData != null) {
       for (const child of childrenFormData) {
 
-        if (child.nodeName === 'INPUT') { //vérifié s'ils ont l'attribut required également ??
+        if (child.nodeName === 'INPUT') { //faire deux tableaux ? un pour les inputs classiques et l'autre pour radio ?
           //console.log('une réussite : ', child);
-          tabInput.push(new FieldForm(i, child));
+          (child.type === 'radio' ? tabRadio : tabInput).push(child);
         }
       }
     }
   }
-  // console.log(tabInput);
+   console.log('TabInput : ', tabInput);
+   console.log('Tab Radio : ', tabRadio);
   return tabInput;
 }
 
 
-function validateInput(fieldForm) {
   // objectif : Déterminer quel input passé en argument pour effectuer par la suite la validation nécessaire
-  let nameInput = fieldForm.field.name;
+function validateInput(field) {
+  let divParent = field.parentNode;
+  let nameInput = field.name;
+  let validity = field.validity;
+
 
   switch (nameInput) {
     case 'firstName':
-      console.log(nameInput, ' : test min 2 lettres');
-      break;
+      console.log(nameInput, ' CheckValidity : ', field.checkValidity());
+      if (!field.checkValidity()) {
+        let msgError;
+        let empty = isEmpty(validity);
 
-    case 'lastName':
-      console.log(nameInput, ' : test min 2 lettres');
+        if (empty[0]) {
+          console.log(nameInput, ' avec isEmpty (on veut true) : ', empty[0]);
+          msgError = empty[1];
+        } else {
+          let short = isShort(validity);
+
+            if (short[0]) {
+              console.log(nameInput, ' avec isShort (on veut true) : ', short[0]);
+              msgError = short[1];
+            }
+        }
+        setDataError(divParent, msgError);
+      } else {
+        deleteDataError(divParent);
+      }
+
       break;
 
     case 'email':
-      console.log(nameInput, ' : hfdgeziyu@hjfgeuy.fhr');
+      if (!field.checkValidity()) {
+        let msgError;
+        let empty = isEmpty(validity);
+
+        if (empty[0]) {
+          console.log(nameInput, ' avec isEmpty (on veut true) : ', empty[0]);
+          msgError = empty[1];
+        } else {
+          let email = isEmail(validity);
+
+          if (email[0]) {
+            console.log(nameInput, ' avec isEmail : ', email[0]);
+            msgError = email[1];
+          }
+        }
+        setDataError(divParent, msgError);
+      } 
+      console.log(nameInput, ' avec typeMismatch : ', field.validity.typeMismatch);
       break;
 
-    case 'birthDate':
-      console.log(nameInput, ' : a quel point t\'es vieux ? min age ??');
-      break;
-
-    case 'numberGameJoin':
-      console.log(nameInput, ' : important de connaître votre expérience');
-      break;
-
-    case 'numberGameJoin':
-      console.log(nameInput, ' : important de connaître votre expérience');
-      break;
-
-    case 'location':
-      console.log(nameInput, ' : faut bidouillé avec celui-ci ils sont six');
-      break;
-
-    case 'checkboxCGU':
-      console.log(nameInput, ' : LE TRUC QUI DOIT A TOUT PRIX ETRE VALIDE');
-      setDataErrorVisibleOnFormData(fieldForm.indiceParent);
-      break;
-
-    default:
-      //inutile si vérification de 'required' au préalable
-      break;
   }
 }
 
-function setDataErrorVisibleOnFormData(i) {
+/*
+const validateProcess = new Map ([
+  ['name', [FirstFunction, SecondFunction]],
+  ['email', [FirstFunction] ],
+  ['birthDate', [FistFunction, ThirdFunction] ]
+]);
+
+
+const FunctionNames = Object.freeze({ 
+  FirstFunction: "firstFunction", 
+  SecondFunction: "secondFunction" 
+});
+
+...
+
+var customObject = {
+  [FunctionNames.FirstFunction]: function(param){...},
+  [FunctionNames.SecondFunction]: function(param){...}
+};
+
+...
+
+customObject[FunctionNames.FirstFunction](param);
+*/
+
+
+function isValid(field) {
+  if (!field.checkValidity()) {
+    let errorFind = false;
+    let tabValidity = field.validity;
+    while (!errorFind) {
+      // isEmpty est appelé par défaut puis 
+      // parcours tab pour savoir quelles fonctions appelées 
+      // errorFind récupère la valeur à l'indice 0 du tab retourné
+    }
+  }
+}
+
+function isEmpty(validity) {
+  return validity.valueMissing ? [true, "ce champ est obligatoire"] : [false];
+}
+
+function isShort(validity) {
+  return validity.tooShort ? [true, "il faut renseigner 2 caractères minimum"] : [false];
+}
+
+function isEmail(validity) {
+  return validity.typeMismatch ? [true, "ce n'est pas un email"] : [false];
+}
+
+function isTypeRespected(validity) {
+  return validity.badInput ? [true, "Le format n'est pas respecté"] : [false];
+}
+
+function isRadioChecked(tabInput) {
+
+}
+
+
   // objectif : ajouter l'attribut data-error-visible à la div formData passé en argument
-  allFormData[i].setAttribute('data-error-visible', true);
+function setDataError(div, message) {
+  div.setAttribute('data-error', message);
+  div.setAttribute('data-error-visible', true);
+}
+
+function deleteDataError(div) {
+    div.setAttribute('data-error-visible', false);
 }

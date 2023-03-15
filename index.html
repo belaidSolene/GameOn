@@ -28,16 +28,16 @@
     </nav>
   </header>
 
-  <main>
-    <section class="main-section">
-      <div class="main-section__content">
-        <h1 class="main-section__headline">Marathon national<br>de jeux vidéos </h1>
-        <p class="main-section__text"> Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux réservations...
+  <hero>
+    <section class="hero-section">
+      <div class="hero-section__content">
+        <h1 class="hero-section__headline">Marathon national<br>de jeux vidéos </h1>
+        <p class="hero-section__text"> Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux réservations...
           Places limitées !</p>
         <button class="btn btn--signup"> je m'inscris </button>
       </div>
 
-      <div class="main-section__img">
+      <div class="hero-section__img">
         <img src="images/bg_img.jpg" alt="photo d'une gameuse en train de gagner" />
       </div>
       <button class="btn btn--signup">je m'inscris</button>
@@ -56,9 +56,9 @@
         <span id="magic">magic happens</span><br>
         <form id="bookingGameEvent" action="index.html" method="POST" onsubmit="return validate();">
           
-          <div class="formData" data-error="Veuillez saisir au minimum 2 caractères">
+          <div class="formData">
             <label for="firstName">Prénom</label><br>
-            <input class="text-control" type="text" id="firstName" name="firstName" minlength="2" required /><br>
+            <input autofocus class="text-control" type="text" id="firstName" name="firstName" minlength="2" required /><br>
           </div>
 
           <div class="formData" data-error="Veuillez saisir au minimum 2 caractères">
@@ -68,7 +68,7 @@
 
           <div class="formData" data-error="Veuillez saisir une adresse email valide">
             <label for="email">E-mail</label><br>
-            <input data-error="encore faux" class="text-control" type="email" id="email" name="email" required /><br>
+            <input class="text-control" type="email" id="email" name="email" required /><br>
           </div>
 
           <div class="formData" data-error>
@@ -83,45 +83,45 @@
 
           <div class="formData" data-error="Veuillez choisir un tournoi">
             <legend class="text-label">A quel tournoi souhaitez-vous participer cette année ?</legend>
-            <input class="checkbox-input" type="radio" id="newYork" name="location" value="New York" checked />
-            <label class="cb-tournament-label" for="newYork">
+            <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
+            <label class="cb-tournament-label" for="location1">
               <span class="checkbox-icon"></span>
               New York
             </label>
 
-            <input class="checkbox-input" type="radio" id="sanFrancisco" name="location" value="San Francisco" />
-            <label class="cb-tournament-label" for="sanFrancisco">
+            <input class="checkbox-input" type="radio" id="location2" name="location" value="San Francisco" />
+            <label class="cb-tournament-label" for="location2">
               <span class="checkbox-icon"></span>
               San Francisco
             </label>
 
-            <input class="checkbox-input" type="radio" id="seattle" name="location" value="Seattle" />
-            <label class="cb-tournament-label" for="seattle">
+            <input class="checkbox-input" type="radio" id="location3" name="location" value="Seattle" />
+            <label class="cb-tournament-label" for="location3">
               <span class="checkbox-icon"></span>
               Seattle
             </label>
 
-            <input class="checkbox-input" type="radio" id="chicago" name="location" value="Chicago" />
-            <label class="cb-tournament-label" for="chicago">
+            <input class="checkbox-input" type="radio" id="location4" name="location" value="Chicago" />
+            <label class="cb-tournament-label" for="location4">
               <span class="checkbox-icon"></span>
               Chicago
             </label>
 
-            <input class="checkbox-input" type="radio" id="boston" name="location" value="Boston" />
-            <label class="cb-tournament-label" for="boston">
+            <input class="checkbox-input" type="radio" id="location5" name="location" value="Boston" />
+            <label class="cb-tournament-label" for="location5">
               <span class="checkbox-icon"></span>
               Boston
             </label>
 
-            <input class="checkbox-input" type="radio" id="portland" name="location" value="Portland" />
-            <label class="cb-tournament-label" for="portland">
+            <input class="checkbox-input" type="radio" id="location6" name="location" value="Portland" />
+            <label class="cb-tournament-label" for="location6">
               <span class="checkbox-icon"></span>
               Portland
             </label>
           </div>
 
           <div class="formData" data-error="Veuillez accepter nos CGU">
-            <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required checked />
+            <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required />
             <label class="cb-CGU-newsLetter-label" for="checkboxCGU">
               <span class="checkbox-icon"></span>
               J'ai lu et accepté les conditions d'utilisation.
@@ -140,7 +140,7 @@
         </form>
       </div>
     </section>
-  </main>
+  </hero>
 
   <footer>
     <p class="copyrights">
