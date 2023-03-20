@@ -9,81 +9,91 @@ function editNav() {
 
 modalEvents();
 
-
-
 function modalEvents() {
   // Modal Elements
-  const modalSection = document.querySelector(".modal-section");
-  const signupBtn = document.querySelectorAll(".btn--signup");
-  const closeModalBtn = document.querySelector(".close-form");
+  const modalSection = ".modal-section";
+  const signupBtns = document.querySelectorAll(".btn--signup");
+  const closeModalBtns = document.querySelectorAll(".close");
 
   // launch modal event
-  signupBtn.forEach((btn) => btn.addEventListener("click", lauchModal));
+  signupBtns.forEach((btn) => btn.addEventListener("click", () => {
+    lauchDiv(modalSection);
+    lauchDiv(".content--form-body");
+    document.getElementById("firstName").focus();
+  }));
 
-  // close modal with button 
-  closeModalBtn.addEventListener("click", closeModal);
+  // close modal with cross 
+  closeModalBtns.forEach((btn) => btn.addEventListener("click", () => closeDiv(modalSection)));
+}
 
-  // launch modal
-  function lauchModal() {
-    modalSection.className += " show";
-  }
+// add "display: block" on div 
+function lauchDiv(div) {
+  document.querySelector(div).className += " show";
+}
 
-  // close modal
-  function closeModal() {
-    modalSection.classList.remove("show");
-  }
+// remove "display: block" on div
+function closeDiv(div) {
+  document.querySelector(div).classList.remove("show");
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-// Form Element for Validation Form
-const form = document.querySelector("#bookingGameEvent");
 
+formEvent();
 
-// Validation Form
-form.addEventListener('submit', (event) => {
-  event.preventDefault;
-  // close form --> appears thank message --> close thank message and modal
-});
-////////////////////////////////////////////////////////////////////////////////////////////////////
+function formEvent() {
+  const form = document.querySelector("#bookingGameEvent");
 
-//Experience to make form validation
-const dataError = document.getElementById("magic"); // bouton/texte pour lancer les fonctions
+  // Validate Form
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    validate();
+  });
+}
 
-dataError.addEventListener('click', () => {
+// objectif : valider form et afficher message de confirmation
+function validate() {
   validationFields();
-});
 
+  if (validationForm()) {
+    closeDiv(".content--form-body");
+    lauchDiv(".content--confirmation");
+  }
+}
+
+// objectif : valider tous les champs requis et afficher message d'erreur si nécessaire
 function validationFields() {
   const validateProcess = new Map([
-    ['firstName', [isEmpty, isPatternRespected]], //pas vide, 2 caract
+    ['firstName', [isEmpty, isPatternRespected]],
     ['lastName', [isEmpty, isPatternRespected]],
-    ['email', [isEmpty, isPatternRespected]], //valide
-    ['numberGameJoin', [isPatternRespected]], //not empty, chiffre
-    ['location', [isCheckedRadio]], // un bouton sélectionné
-    ['checkboxCGU', [isCheckedCheckbox]] //obligatoire
+    ['email', [isEmpty, isPatternRespected]],
+    ['numberGameJoin', [isPatternRespected]],
+    ['location', [isCheckedRadio]],
+    ['checkboxCGU', [isCheckedCheckbox]]
   ]);
 
   validateProcess.forEach((fcts, key) => {
-    const fields = document.getElementsByName(key);
+    const fields = document.getElementsByName(key); // tableau d'élément qui répond à la condition
     const msgErreur = [];
 
     fcts.forEach((fct) => {
       const reponse = fct(fields);
 
-      if(reponse != false) {
+      if (reponse != false) {
         msgErreur.push(reponse);
       }
     });
 
-    msgErreur.length >= 1 ? setDataError(getField(fields).parentNode, msgErreur[0]) :  deleteDataError(getField(fields).parentNode);
+    msgErreur.length >= 1 ? setDataError(getField(fields).parentNode, msgErreur[0]) : deleteDataError(getField(fields).parentNode);
   });
 }
 
-function isCheckedRadio(btnsRadios) {
+
+// objectif : check qu'au moins un bouton radio est sélectionné
+function isCheckedRadio(fieldList) {
   let notChecked = true;
 
-  btnsRadios.forEach((radio) => {
+  fieldList.forEach((radio) => {
     if (radio.checked == true) {
       notChecked = false;
     }
@@ -92,38 +102,59 @@ function isCheckedRadio(btnsRadios) {
   return notChecked ? "Veuillez choisir un tournoi" : false;
 }
 
+// objectif : check que la case à cocher est coché
 function isCheckedCheckbox(fieldList) {
   return !getField(fieldList).checked ? "veuillez accepter les CGU" : false;
 }
 
+// objectif : check si le champs n'est pas vide
 function isEmpty(fieldList) {
-  return getField(fieldList).validity.valueMissing ? "ce champ est obligatoire" : false;
+  return getField(fieldList).value == "" ? "ce champ est obligatoire" : false;
 }
 
+// objectif : check si le format est respecté
 function isPatternRespected(fieldList) {
   const regex = new Map([
     ['firstName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "il faut renseigner 2 caractères minimum"]],
     ['lastName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "il faut renseigner 2 caractères minimum"]],
-    ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/i, "email non valide"]],
+    ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,}\b/i, "email non valide"]],
     ['numberGameJoin', [/^([0-9]{1,})$/, "obligatoire"]]
   ]);
 
   const field = getField(fieldList);
-  const value = regex.get(field.id);
+  const regexField = regex.get(field.id);
 
-  return value[0].test(field.value) ? false : value[1];
+  return regexField[0].test(field.value) ? false : regexField[1];
 }
 
+// objectif : renvoie le premier élément du tableau passé en argument
 function getField(fieldList) {
   return field = fieldList[0];
 }
 
-// objectif : ajouter l'attribut data-error-visible à la div formData passé en argument
+////////////////////////////////////////////////////////////////////////////////
+
+// objectif : ajouter et afficher message d'erreur
 function setDataError(div, message) {
   div.setAttribute('data-error', message);
   div.setAttribute('data-error-visible', true);
 }
 
+// objectif : supprimer message d'erreur
 function deleteDataError(div) {
   div.setAttribute('data-error-visible', false);
 }
+
+// objectif : vérifier qu'il y a aucun message d'erreur pour valider formulaire
+function validationForm() {
+  const formData = document.querySelectorAll(".formData");
+  let isValid = true;
+
+  formData.forEach((div) => {
+    if (div.getAttribute('data-error-visible') === 'true') {
+      isValid = false;
+    }
+  });
+
+  return isValid;
+} 
