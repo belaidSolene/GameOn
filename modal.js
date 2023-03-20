@@ -26,12 +26,12 @@ function modalEvents() {
   closeModalBtns.forEach((btn) => btn.addEventListener("click", () => closeDiv(modalSection)));
 }
 
-// add "display: block" on div 
+// add class with "display: block" on div 
 function lauchDiv(div) {
   document.querySelector(div).className += " show";
 }
 
-// remove "display: block" on div
+// remove class with "display: block" on div
 function closeDiv(div) {
   document.querySelector(div).classList.remove("show");
 }
