@@ -98,9 +98,10 @@ img {
 
 .header .icon {
   display: none;
+  color: #ff0000;
 }
 
-hero {
+hero-section {
   font-size: 130%;
   font-weight: bolder;
   color: black;
@@ -467,7 +468,7 @@ formData div + input border red*/
     content: unset;
   }
 
-  .hero-section__content .btn-signup {
+  .hero-section__content .btn--signup {
     display: none;
   }
 
@@ -499,6 +500,19 @@ formData div + input border red*/
 }
 
 @media screen and (max-width: 768px) {
+  
+  .header__logo {
+    margin: 17px 10px 0;
+  }
+  
+  img {
+    height: 25px;
+  }
+
+  .header.responsive {
+    position: relative;
+  }
+
   .header a {
     display: none;
   }
@@ -508,20 +522,39 @@ formData div + input border red*/
     display: block;
   }
 
-  .header.responsive {
-    position: relative;
-  }
-
   .header.responsive .icon {
     position: absolute;
+    width: auto;
     right: 0;
     top: 0;
   }
 
   .header.responsive a {
     float: none;
+    width: 100%;
     display: block;
     text-align: left;
+  }
+
+  .hero-section {
+    margin: 5px;
+  }
+
+  .hero-section__headline { 
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .hero-section__text {
+    margin-top: 10px;
+    font-size: 1rem;
+    padding: 0;
+    width: auto;
+  }
+
+  .hero-section__content {
+    padding: 0;
+    min-width: none;
   }
 }
 

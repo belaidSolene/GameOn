@@ -1,10 +1,7 @@
 function editNav() {
   var header = document.getElementById("header");
-  if (header.className === "header") {
-    header.className += " responsive";
-  } else {
-    header.className = "header";
-  }
+
+  header.className === "header" ? header.className += " responsive" : header.className = "header";
 }
 
 modalEvents();
@@ -38,14 +35,6 @@ function lauchDiv(div) {
 function closeDiv(div) {
   document.querySelector(div).classList.remove("show");
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-const magic = document.getElementById('magic');
-magic.addEventListener('click', () => {
-  
-});
-
-/////////////////////////////////////////////////////////////////////////////////////////////
 
 formEvent();
 

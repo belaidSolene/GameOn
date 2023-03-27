@@ -28,120 +28,119 @@
     </nav>
   </header>
 
-  <hero>
-    <section class="hero-section">
-      <div class="hero-section__content">
-        <h1 class="hero-section__headline">Marathon national<br>de jeux vidéos </h1>
-        <p class="hero-section__text"> Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux réservations...
-          Places limitées !</p>
-        <button class="btn btn--signup"> je m'inscris </button>
-      </div>
+  <section class="hero-section">
+    <div class="hero-section__content">
+      <h1 class="hero-section__headline">Marathon national<br>de jeux vidéos </h1>
+      <p class="hero-section__text"> Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux réservations...
+        Places limitées !</p>
+      <button class="btn btn--signup"> je m'inscris </button>
+    </div>
 
-      <div class="hero-section__img">
-        <img src="images/bg_img.jpg" alt="photo d'une gameuse en train de gagner" />
-      </div>
-      <button class="btn btn--signup">je m'inscris</button>
-    </section>
+    <div class="hero-section__img">
+      <img src="images/bg_img.jpg" alt="photo d'une gameuse en train de gagner" />
+    </div>
+    <button class="btn btn--signup">je m'inscris</button>
+  </section>
 
-    <section class="modal-section">
-      <div class="content content--confirmation">
-        <span class="close"></span>
-        <p>
-          Merci !<br />
-          Votre réservation a été reçue.
-        </p>
-      </div>
-      <div class="content content--form-body">
-        <span class="close"></span>
-        <span id="magic">magic happens</span><br>
-        <form id="bookingGameEvent" action="index.html" method="GET" novalidate>
+  <section class="modal-section">
+    <div class="content content--confirmation">
+      <span class="close"></span>
+      <p>
+        Merci !<br />
+        Votre réservation a été reçue.
+      </p>
+    </div>
 
-          <div class="formData">
-            <label for="firstName">Prénom</label><br>
-            <input autofocus class="text-control" type="text" id="firstName" name="firstName" minlength="2"
-              required /><br>
-          </div>
+    <div class="content content--form-body">
+      <span class="close"></span>
+      <form id="bookingGameEvent" action="index.html" method="GET" novalidate>
 
-          <div class="formData">
-            <label for="lastName">Nom</label><br>
-            <input class="text-control" type="text" id="lastName" name="lastName" minlength="2" required /><br>
-          </div>
+        <div class="formData">
+          <label for="firstName">Prénom</label><br>
+          <input autofocus class="text-control" type="text" id="firstName" name="firstName" minlength="2"
+            required /><br>
+        </div>
 
-          <div class="formData">
-            <label for="email">E-mail</label><br>
-            <input class="text-control" type="email" id="email" name="email" required /><br>
-          </div>
+        <div class="formData">
+          <label for="lastName">Nom</label><br>
+          <input class="text-control" type="text" id="lastName" name="lastName" minlength="2" required /><br>
+        </div>
 
-          <div class="formData">
-            <label for="birthDate">Date de naissance</label><br>
-            <input class="text-control" type="date" id="birthDate" name="birthDate" required /><br>
-          </div>
+        <div class="formData">
+          <label for="email">E-mail</label><br>
+          <input class="text-control" type="email" id="email" name="email" required /><br>
+        </div>
 
-          <div class="formData">
-            <label for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-            <input type="number" class="text-control" id="numberGameJoin" name="numberGameJoin" min="0" max="99"
-              required /><br>
-          </div>
+        <div class="formData">
+          <label for="birthDate">Date de naissance</label><br>
+          <input class="text-control" type="date" id="birthDate" name="birthDate" required /><br>
+        </div>
 
-          <div class="formData">
-              <legend class="text-label">A quel tournoi souhaitez-vous participer cette année ?</legend>
-              <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
-              <label class="cb-tournament-label" for="location1">
-                <span class="checkbox-icon"></span>
-                New York
-              </label>
+        <div class="formData">
+          <label for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+          <input type="number" class="text-control" id="numberGameJoin" name="numberGameJoin" min="0" max="99"
+            required /><br>
+        </div>
 
-              <input class="checkbox-input" type="radio" id="location2" name="location" value="San Francisco" />
-              <label class="cb-tournament-label" for="location2">
-                <span class="checkbox-icon"></span>
-                San Francisco
-              </label>
+        <div class="formData">
+          <legend class="text-label">A quel tournoi souhaitez-vous participer cette année ?</legend>
+          <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
+          <label class="cb-tournament-label" for="location1">
+            <span class="checkbox-icon"></span>
+            New York
+          </label>
 
-              <input class="checkbox-input" type="radio" id="location3" name="location" value="Seattle" />
-              <label class="cb-tournament-label" for="location3">
-                <span class="checkbox-icon"></span>
-                Seattle
-              </label>
+          <input class="checkbox-input" type="radio" id="location2" name="location" value="San Francisco" />
+          <label class="cb-tournament-label" for="location2">
+            <span class="checkbox-icon"></span>
+            San Francisco
+          </label>
 
-              <input class="checkbox-input" type="radio" id="location4" name="location" value="Chicago" />
-              <label class="cb-tournament-label" for="location4">
-                <span class="checkbox-icon"></span>
-                Chicago
-              </label>
+          <input class="checkbox-input" type="radio" id="location3" name="location" value="Seattle" />
+          <label class="cb-tournament-label" for="location3">
+            <span class="checkbox-icon"></span>
+            Seattle
+          </label>
 
-              <input class="checkbox-input" type="radio" id="location5" name="location" value="Boston" />
-              <label class="cb-tournament-label" for="location5">
-                <span class="checkbox-icon"></span>
-                Boston
-              </label>
+          <input class="checkbox-input" type="radio" id="location4" name="location" value="Chicago" />
+          <label class="cb-tournament-label" for="location4">
+            <span class="checkbox-icon"></span>
+            Chicago
+          </label>
 
-              <input class="checkbox-input" type="radio" id="location6" name="location" value="Portland" />
-              <label class="cb-tournament-label" for="location6">
-                <span class="checkbox-icon"></span>
-                Portland
-              </label>
-          </div>
+          <input class="checkbox-input" type="radio" id="location5" name="location" value="Boston" />
+          <label class="cb-tournament-label" for="location5">
+            <span class="checkbox-icon"></span>
+            Boston
+          </label>
 
-          <div class="formData">
-            <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required />
-            <label class="cb-CGU-newsLetter-label" for="checkboxCGU">
-              <span class="checkbox-icon"></span>
-              J'ai lu et accepté les conditions d'utilisation.
-            </label>
-          </div>
+          <input class="checkbox-input" type="radio" id="location6" name="location" value="Portland" />
+          <label class="cb-tournament-label" for="location6">
+            <span class="checkbox-icon"></span>
+            Portland
+          </label>
+        </div>
 
-          <div class="formData">
-            <input class="checkbox-input" type="checkbox" id="checkboxNewsLetter" />
-            <label class="cb-CGU-newsLetter-label" for="checkboxNewsLetter">
-              <span class="checkbox-icon"></span>
-              Je souhaite être prévenu des prochains évènements.
-            </label>
-          </div>
+        <div class="formData">
+          <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required />
+          <label class="cb-CGU-newsLetter-label" for="checkboxCGU">
+            <span class="checkbox-icon"></span>
+            J'ai lu et accepté les conditions d'utilisation.
+          </label>
+        </div>
 
-          <input class="btn btn--submit " type="submit" value="C'est parti" />
-        </form>
-      </div>
-    </section>
+        <div class="formData">
+          <input class="checkbox-input" type="checkbox" id="checkboxNewsLetter" />
+          <label class="cb-CGU-newsLetter-label" for="checkboxNewsLetter">
+            <span class="checkbox-icon"></span>
+            Je souhaite être prévenu des prochains évènements.
+          </label>
+        </div>
+
+        <input class="btn btn--submit " type="submit" value="C'est parti" />
+      </form>
+    </div>
+  </section>
   </hero>
 
   <footer>
