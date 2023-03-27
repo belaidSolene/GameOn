@@ -315,7 +315,7 @@ formData div + input border red*/
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
 
-/* custom select styles */
+/* custom select styles
 .custom-select {
   position: relative;
   font-family: Arial;
@@ -331,7 +331,7 @@ formData div + input border red*/
   background-color: #fff;
 }
 
-/* Style the arrow inside the select element: */
+// Style the arrow inside the select element: 
 .select-selected:after {
   position: absolute;
   content: "";
@@ -346,7 +346,7 @@ formData div + input border red*/
   border-radius: 5px 0 5px 0;
 }
 
-/* Point the arrow upwards when the select box is open (active): */
+//* Point the arrow upwards when the select box is open (active): 
 .select-selected.select-arrow-active:after {
   transform: rotate(135deg);
   top: 13px;
@@ -363,7 +363,7 @@ formData div + input border red*/
   height: 48px;
 }
 
-/* Style items (options): */
+//* Style items (options):
 .select-items {
   position: absolute;
   background-color: #fff;
@@ -373,7 +373,7 @@ formData div + input border red*/
   z-index: 99;
 }
 
-/* Hide the items when the select box is closed: */
+//* Hide the items when the select box is closed:
 .select-hide {
   display: none;
 }
@@ -381,7 +381,7 @@ formData div + input border red*/
 .select-items div:hover,
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* custom select end */
 .text-label {
@@ -475,6 +475,7 @@ formData div + input border red*/
   .hero-section__headline {
     font-size: 4.5rem;
     white-space: normal;
+    text-align: center;
   }
 
   .hero-section__text {
@@ -513,6 +514,15 @@ formData div + input border red*/
     position: relative;
   }
 
+  .header__nav{
+    width: 100%;
+    float: none;
+  }
+
+  .header.responsive .header__nav {
+    float: right;
+  }
+  
   .header a {
     display: none;
   }
@@ -520,6 +530,7 @@ formData div + input border red*/
   .header a.icon {
     float: right;
     display: block;
+    font-size: 15px;
   }
 
   .header.responsive .icon {
@@ -531,31 +542,34 @@ formData div + input border red*/
 
   .header.responsive a {
     float: none;
-    width: 100%;
+    font-size: 15px;
     display: block;
     text-align: left;
   }
 
-  .hero-section {
-    margin: 5px;
-  }
+    .hero-section {
+      margin: 25px;
+    }
 
-  .hero-section__headline { 
-    font-size: 2rem;
-    font-weight: 600;
-  }
+    .hero-section__headline { 
+      font-size: 2rem;
+      font-weight: 600;
+    }
 
-  .hero-section__text {
-    margin-top: 10px;
-    font-size: 1rem;
-    padding: 0;
-    width: auto;
-  }
+    .hero-section__text {
+      font-size: 1rem;
+      padding: 0;
+      width: auto;
+    }
 
-  .hero-section__content {
-    padding: 0;
-    min-width: none;
-  }
+    .hero-section__content {
+      padding: 0;
+      min-width: 0;
+    }
+
+    .btn--signup {
+      font-size: 20px;
+    }
 }
 
 @keyframes formOpen {
