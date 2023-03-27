@@ -23,7 +23,10 @@ function modalEvents() {
   }));
 
   // close modal with cross 
-  closeModalBtns.forEach((btn) => btn.addEventListener("click", () => closeDiv(modalSection)));
+  closeModalBtns.forEach((btn) => btn.addEventListener("click", () =>  {
+    closeDiv(modalSection);
+    closeDiv(".content--confirmation");
+  }));
 }
 
 // add class with "display: block" on div 
@@ -36,6 +39,11 @@ function closeDiv(div) {
   document.querySelector(div).classList.remove("show");
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+const magic = document.getElementById('magic');
+magic.addEventListener('click', () => {
+  
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,36 +52,46 @@ formEvent();
 function formEvent() {
   const form = document.querySelector("#bookingGameEvent");
 
-  // Validate Form
+  // lauch validation form bookingGameEvent
   form.addEventListener('submit', (event) => {
+    const callValidationFunctions = new Map([
+      ['firstName', [isEmpty, isPatternRespected]],
+      ['lastName', [isEmpty, isPatternRespected]],
+      ['email', [isEmpty, isPatternRespected]],
+      ['numberGameJoin', [isPatternRespected]],
+      ['birthDate', [isEmpty, isOverEighteen]],
+      ['location', [isCheckedRadio]],
+      ['checkboxCGU', [isCheckedCheckbox]]
+    ]);
+
+    const callWindowFunction = new Map([
+      ['.content--form-body', closeDiv],
+      ['.content--confirmation', lauchDiv]
+    ]);
+  
+    
     event.preventDefault();
-    validate();
+    validate(callValidationFunctions, callWindowFunction, form);
   });
 }
 
-// objectif : valider form et afficher message de confirmation
-function validate() {
-  validationFields();
+// objectif : valider un formulaire
+function validate(callValidationFunctions, callWindowFunction, form) {
+  validationFields(callValidationFunctions);
 
   if (validationForm()) {
-    closeDiv(".content--form-body");
-    lauchDiv(".content--confirmation");
-  }
+    callWindowFunction.forEach((fct, key) => {
+      fct(key);
+    })
+
+    form.reset();
+  } 
 }
 
-// objectif : valider tous les champs requis et afficher message d'erreur si nécessaire
-function validationFields() {
-  const validateProcess = new Map([
-    ['firstName', [isEmpty, isPatternRespected]],
-    ['lastName', [isEmpty, isPatternRespected]],
-    ['email', [isEmpty, isPatternRespected]],
-    ['numberGameJoin', [isPatternRespected]],
-    ['location', [isCheckedRadio]],
-    ['checkboxCGU', [isCheckedCheckbox]]
-  ]);
-
-  validateProcess.forEach((fcts, key) => {
-    const fields = document.getElementsByName(key); // tableau d'élément qui répond à la condition
+// objectif : appel les fonctions de validation indiquées dans callValidationFunctions en fonction de la clé
+function validationFields(callValidationFunctions) {
+  callValidationFunctions.forEach((fcts, key) => {
+    const fields = document.getElementsByName(key); // renvoie tableau
     const msgErreur = [];
 
     fcts.forEach((fct) => {
@@ -88,6 +106,32 @@ function validationFields() {
   });
 }
 
+// objectif : check que la case à cocher est coché
+function isCheckedCheckbox(fieldList) {
+  return !getField(fieldList).checked ? "veuillez accepter les CGU" : false;
+}
+
+// objectif : check si le format est respecté
+function isPatternRespected(fieldList) {
+  const regex = new Map([
+    ['firstName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
+    ['lastName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
+    ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,}\b/i, "Email non valide"]],
+    ['numberGameJoin', [/^([0-9]{1,})$/, "Veuillez renseigner un nombre positif"]]
+  ]);
+
+  const field = getField(fieldList);
+  const regexField = regex.get(field.id);
+
+  return regexField[0].test(field.value) ? false : regexField[1];
+}
+
+function isOverEighteen (fieldList) {
+  const field = new Date(getField(fieldList).value);
+  const overEighteenDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
+
+  return field > overEighteenDate ? 'Il faut être majeur pour s\'inscrire' : false;
+}
 
 // objectif : check qu'au moins un bouton radio est sélectionné
 function isCheckedRadio(fieldList) {
@@ -102,29 +146,9 @@ function isCheckedRadio(fieldList) {
   return notChecked ? "Veuillez choisir un tournoi" : false;
 }
 
-// objectif : check que la case à cocher est coché
-function isCheckedCheckbox(fieldList) {
-  return !getField(fieldList).checked ? "veuillez accepter les CGU" : false;
-}
-
 // objectif : check si le champs n'est pas vide
 function isEmpty(fieldList) {
   return getField(fieldList).value == "" ? "ce champ est obligatoire" : false;
-}
-
-// objectif : check si le format est respecté
-function isPatternRespected(fieldList) {
-  const regex = new Map([
-    ['firstName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "il faut renseigner 2 caractères minimum"]],
-    ['lastName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "il faut renseigner 2 caractères minimum"]],
-    ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,}\b/i, "email non valide"]],
-    ['numberGameJoin', [/^([0-9]{1,})$/, "obligatoire"]]
-  ]);
-
-  const field = getField(fieldList);
-  const regexField = regex.get(field.id);
-
-  return regexField[0].test(field.value) ? false : regexField[1];
 }
 
 // objectif : renvoie le premier élément du tableau passé en argument
