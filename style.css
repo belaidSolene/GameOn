@@ -51,9 +51,9 @@ img {
   margin: 59px 0 0;
 }
 
-.btn--submit {
+.btn--form {
   display: block;
-  margin: 0 auto;
+  margin: 15px auto 0;
   font-size: 1rem;
   padding: 12px 82px;
 }
@@ -155,6 +155,16 @@ footer {
   display: none;
 }
 
+.content--confirmation p{
+  height: 90%;
+  width: 100%;
+
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .show {
   display: block;
 }
@@ -164,7 +174,10 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+}
+
+.text-label {
+  margin : 11px 0 7px;
 }
 
 input {
@@ -216,6 +229,10 @@ formData div + input border red*/
   margin-left: 36px;
   font-size: 12px;
   font-weight: normal;
+}
+
+.cb-CGU-newsLetter {
+  margin-top: 11px;
 }
 
 .cb-tournament-label .checkbox-icon,
@@ -279,7 +296,7 @@ formData div + input border red*/
   background: #279e7a;
 }
 
-.close {
+.closing-cross {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -290,8 +307,8 @@ formData div + input border red*/
   transform: scale(0.7);
 }
 
-.close::before,
-.close::after {
+.closing-cross::before,
+.closing-cross::after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -300,11 +317,11 @@ formData div + input border red*/
   background-color: #fff;
 }
 
-.close::before {
+.closing-cross::before {
   transform: rotate(45deg);
 }
 
-.close::after {
+.closing-cross::after {
   transform: rotate(-45deg);
 }
 
@@ -384,10 +401,7 @@ formData div + input border red*/
 } */
 
 /* custom select end */
-.text-label {
-  font-weight: normal;
-  font-size: 16px;
-}
+
 
 /*////////////////////////////////////////////*/
 /*////////////////////////////////////////////*/
@@ -397,7 +411,7 @@ formData div + input border red*/
 /*////////////////////////////////////////////*/
 
 
-/* hero SECTION */
+/* HERO SECTION */
 .hero-section {
   max-height: 93vh;
   border-radius: 10px;
@@ -569,6 +583,18 @@ formData div + input border red*/
 
     .btn--signup {
       font-size: 20px;
+    }
+
+    .modal-section {
+      background-color: rgba(26, 39, 156, 0);
+    }
+
+    .content {
+      top: 52px;
+    }
+
+    .text-label {
+      font-size: 16px;
     }
 }
 

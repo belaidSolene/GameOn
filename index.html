@@ -43,42 +43,33 @@
   </section>
 
   <section class="modal-section">
-    <div class="content content--confirmation">
-      <span class="close"></span>
-      <p>
-        Merci !<br />
-        Votre réservation a été reçue.
-      </p>
-      <button class="btn btn--submit"> Fermer </button>
-    </div>
-
     <div class="content content--form-body">
-      <span class="close"></span>
+      <span class="closing-cross close"></span>
       <form id="bookingGameEvent" action="index.html" method="GET" novalidate>
 
         <div class="formData">
-          <label for="firstName">Prénom</label><br>
+          <label class="text-label" for="firstName">Prénom</label><br>
           <input autofocus class="text-control" type="text" id="firstName" name="firstName" minlength="2"
             required /><br>
         </div>
 
         <div class="formData">
-          <label for="lastName">Nom</label><br>
+          <label class="text-label" for="lastName">Nom</label><br>
           <input class="text-control" type="text" id="lastName" name="lastName" minlength="2" required /><br>
         </div>
 
         <div class="formData">
-          <label for="email">E-mail</label><br>
+          <label class="text-label" for="email">E-mail</label><br>
           <input class="text-control" type="email" id="email" name="email" required /><br>
         </div>
 
         <div class="formData">
-          <label for="birthDate">Date de naissance</label><br>
+          <label class="text-label" for="birthDate">Date de naissance</label><br>
           <input class="text-control" type="date" id="birthDate" name="birthDate" required /><br>
         </div>
 
         <div class="formData">
-          <label for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+          <label class="text-label" for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
           <input type="number" class="text-control" id="numberGameJoin" name="numberGameJoin" min="0" max="99"
             required /><br>
         </div>
@@ -122,7 +113,7 @@
           </label>
         </div>
 
-        <div class="formData">
+        <div class="formData cb-CGU-newsLetter">
           <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required />
           <label class="cb-CGU-newsLetter-label" for="checkboxCGU">
             <span class="checkbox-icon"></span>
@@ -130,7 +121,7 @@
           </label>
         </div>
 
-        <div class="formData">
+        <div class="formData cb-CGU-newsLetter">
           <input class="checkbox-input" type="checkbox" id="checkboxNewsLetter" />
           <label class="cb-CGU-newsLetter-label" for="checkboxNewsLetter">
             <span class="checkbox-icon"></span>
@@ -138,8 +129,17 @@
           </label>
         </div>
 
-        <input class="btn btn--submit " type="submit" value="C'est parti" />
+        <input class="btn btn--form " type="submit" value="C'est parti" />
       </form>
+    </div>
+
+    <div class="content content--confirmation">
+      <span class="closing-cross close"></span>
+      <p>
+        Merci !<br />
+        Votre réservation a été reçue.
+      </p>
+      <button class="btn btn--form close"> Fermer </button>
     </div>
   </section>
   </hero>

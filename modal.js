@@ -60,7 +60,16 @@ function formEvent() {
   
     
     event.preventDefault();
-    validate(callValidationFunctions, callWindowFunction, form);
+
+    setHeightConfirmation('.content--confirmation');
+
+    callWindowFunction.forEach((fct, key) => {
+      fct(key);
+    })
+
+    form.reset();
+
+    //validate(callValidationFunctions, callWindowFunction, form);
   });
 }
 
@@ -76,6 +85,15 @@ function validate(callValidationFunctions, callWindowFunction, form) {
     form.reset();
   } 
 }
+
+function setHeightConfirmation(window) {
+  const formHeight = document.getElementById("bookingGameEvent").offsetHeight;
+  const formPadding = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingTop) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingBottom);
+  const formBorder = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderTopWidth) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderBottomWidth);
+  const totalHeight = formHeight + formPadding + formBorder;
+  document.querySelector(window).style.height = totalHeight + 'px';
+}
+
 
 // objectif : appel les fonctions de validation indiquées dans callValidationFunctions en fonction de la clé
 function validationFields(callValidationFunctions) {
