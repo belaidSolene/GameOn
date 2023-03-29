@@ -61,15 +61,9 @@ function formEvent() {
     
     event.preventDefault();
 
-    setHeightConfirmation('.content--confirmation');
+   setHeightConfirmation('.content--confirmation');
 
-    callWindowFunction.forEach((fct, key) => {
-      fct(key);
-    })
-
-    form.reset();
-
-    //validate(callValidationFunctions, callWindowFunction, form);
+    validate(callValidationFunctions, callWindowFunction, form);
   });
 }
 
@@ -134,10 +128,11 @@ function isPatternRespected(fieldList) {
 }
 
 function isOverEighteen (fieldList) {
-  const field = new Date(getField(fieldList).value);
+  const fieldDate = new Date(getField(fieldList).value);
   const overEighteenDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
+  const overOneHundredDate = new Date(new Date()).setFullYear(new Date().getFullYear() - 126);
 
-  return field > overEighteenDate ? 'Il faut être majeur pour s\'inscrire' : false;
+  return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire' ;
 }
 
 // objectif : check qu'au moins un bouton radio est sélectionné
