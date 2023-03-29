@@ -20,7 +20,7 @@ function modalEvents() {
   }));
 
   // close modal with cross 
-  closeModalBtns.forEach((btn) => btn.addEventListener("click", () =>  {
+  closeModalBtns.forEach((btn) => btn.addEventListener("click", () => {
     closeDiv(modalSection);
     closeDiv(".content--confirmation");
   }));
@@ -57,11 +57,16 @@ function formEvent() {
       ['.content--form-body', closeDiv],
       ['.content--confirmation', lauchDiv]
     ]);
-  
-    
+
+
     event.preventDefault();
 
-   setHeightConfirmation('.content--confirmation');
+    setHeightConfirmation('.content--confirmation');
+
+   /* callWindowFunction.forEach((fct, key) => {
+      fct(key);
+    })
+    form.reset();*/
 
     validate(callValidationFunctions, callWindowFunction, form);
   });
@@ -77,15 +82,12 @@ function validate(callValidationFunctions, callWindowFunction, form) {
     })
 
     form.reset();
-  } 
+  }
 }
 
 function setHeightConfirmation(window) {
   const formHeight = document.getElementById("bookingGameEvent").offsetHeight;
-  const formPadding = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingTop) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingBottom);
-  const formBorder = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderTopWidth) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderBottomWidth);
-  const totalHeight = formHeight + formPadding + formBorder;
-  document.querySelector(window).style.height = totalHeight + 'px';
+  document.querySelector(window).style.height = formHeight + 'px';
 }
 
 
@@ -127,12 +129,12 @@ function isPatternRespected(fieldList) {
   return regexField[0].test(field.value) ? false : regexField[1];
 }
 
-function isOverEighteen (fieldList) {
+function isOverEighteen(fieldList) {
   const fieldDate = new Date(getField(fieldList).value);
   const overEighteenDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
   const overOneHundredDate = new Date(new Date()).setFullYear(new Date().getFullYear() - 126);
 
-  return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire' ;
+  return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire';
 }
 
 // objectif : check qu'au moins un bouton radio est sélectionné
