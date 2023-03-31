@@ -63,19 +63,17 @@ function formEvent() {
       ['.content--confirmation', lauchDiv]
     ]);
 
-
-
-
     event.preventDefault();
 
-    setHeightConfirmation('.content--confirmation');
+    // set the height of the confirmation div as the same as the form
+    document.querySelector('.content--confirmation').style.height = form.offsetHeight + 'px';
 
     validateForm(fieldsToValidate, callWindowsFct, form);
   });
 }
 
 /* purpose : to validate the form, needs a map with the functions to call by inputs' name, 
-a map with the functions to call after the validation succed, 
+a map with the functions to call after the validation succeed, 
 and the form that has to be reset */
 function validateForm(mapFieldsAndFctsForValidation, mapActionsAfterFormValidated, form) {
   
@@ -190,10 +188,4 @@ function setDataError(div, message) {
 // purpose : to delete error message on the div passes in arguments
 function deleteDataError(div) {
   div.setAttribute('data-error-visible', false);
-}
-
-// purpose : to set the height to the div passes in argument as the same as the form's height
-function setHeightConfirmation(window) {
-  const formHeight = document.getElementById("bookingGameEvent").offsetHeight;
-  document.querySelector(window).style.height = formHeight + 'px';
 }
