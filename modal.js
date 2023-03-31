@@ -64,6 +64,8 @@ function formEvent() {
     ]);
 
 
+
+
     event.preventDefault();
 
     setHeightConfirmation('.content--confirmation');
