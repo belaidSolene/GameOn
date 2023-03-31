@@ -20,7 +20,7 @@ function modalEvents() {
   }));
 
   // close modal with cross 
-  closeModalBtns.forEach((btn) => btn.addEventListener("click", () =>  {
+  closeModalBtns.forEach((btn) => btn.addEventListener("click", () => {
     closeDiv(modalSection);
     closeDiv(".content--confirmation");
   }));
@@ -43,78 +43,94 @@ function formEvent() {
 
   // lauch validation form bookingGameEvent
   form.addEventListener('submit', (event) => {
-    const callValidationFunctions = new Map([
+
+    const fieldsToValidate = new Map([
+      // key : name field, 
+      // value : an array of all functions to call to validate field
       ['firstName', [isEmpty, isPatternRespected]],
       ['lastName', [isEmpty, isPatternRespected]],
       ['email', [isEmpty, isPatternRespected]],
-      ['numberGameJoin', [isPatternRespected]],
       ['birthDate', [isEmpty, isOverEighteen]],
+      ['numberGameJoin', [isPatternRespected]],
       ['location', [isCheckedRadio]],
       ['checkboxCGU', [isCheckedCheckbox]]
     ]);
 
-    const callWindowFunction = new Map([
+    const callWindowsFct = new Map([
+      // key : class of window, 
+      // value : function to execute on the window 
       ['.content--form-body', closeDiv],
       ['.content--confirmation', lauchDiv]
     ]);
-  
-    
+
+
     event.preventDefault();
 
-   setHeightConfirmation('.content--confirmation');
+    setHeightConfirmation('.content--confirmation');
 
-    validate(callValidationFunctions, callWindowFunction, form);
+    validateForm(fieldsToValidate, callWindowsFct, form);
   });
 }
 
-// objectif : valider un formulaire
-function validate(callValidationFunctions, callWindowFunction, form) {
-  validationFields(callValidationFunctions);
-
-  if (validationForm()) {
-    callWindowFunction.forEach((fct, key) => {
+/* purpose : to validate the form, needs a map with the functions to call by inputs' name, 
+a map with the functions to call after the validation succed, 
+and the form that has to be reset */
+function validateForm(mapFieldsAndFctsForValidation, mapActionsAfterFormValidated, form) {
+  
+  if (validationFields(mapFieldsAndFctsForValidation) === 0) {
+    
+    mapActionsAfterFormValidated.forEach((fct, key) => {
       fct(key);
     })
 
     form.reset();
-  } 
+  }
 }
 
-function setHeightConfirmation(window) {
-  const formHeight = document.getElementById("bookingGameEvent").offsetHeight;
-  const formPadding = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingTop) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).paddingBottom);
-  const formBorder = parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderTopWidth) + parseInt(getComputedStyle(document.getElementById("bookingGameEvent")).borderBottomWidth);
-  const totalHeight = formHeight + formPadding + formBorder;
-  document.querySelector(window).style.height = totalHeight + 'px';
-}
+/* purpose : to call all the functions for each field pointed out in mapFielsAndFctsForValidation,
+             to display the error messages send by the validation's functions
+return the number of error found */
+function validationFields(mapFieldsAndFctsForValidation) {
+  let errors = 0;
 
-
-// objectif : appel les fonctions de validation indiquées dans callValidationFunctions en fonction de la clé
-function validationFields(callValidationFunctions) {
-  callValidationFunctions.forEach((fcts, key) => {
-    const fields = document.getElementsByName(key); // renvoie tableau
+  mapFieldsAndFctsForValidation.forEach((fcts, key) => {
+    const fields = document.getElementsByName(key); // return an array
     const msgErreur = [];
 
     fcts.forEach((fct) => {
-      const reponse = fct(fields);
+      const response = fct(fields);
 
-      if (reponse != false) {
-        msgErreur.push(reponse);
+      if (response !== false) {
+        msgErreur.push(response);
       }
     });
 
-    msgErreur.length >= 1 ? setDataError(getField(fields).parentNode, msgErreur[0]) : deleteDataError(getField(fields).parentNode);
+
+    if (msgErreur.length >= 1) {
+      setDataError(getField(fields).parentNode, msgErreur[0]);
+      errors++;
+    } else {
+      deleteDataError(getField(fields).parentNode);
+    }
   });
+
+  return (errors);
 }
 
-// objectif : check que la case à cocher est coché
+//////////////////// validation's functions \\\\\\\\\\\\\\\\\\\\\\\\\\
+/* Search for errors 
+if one is find they return a specific error message else they return false as in "did not find any error" */
+
+// purpose : to check if the checkbox CGU is selected
 function isCheckedCheckbox(fieldList) {
-  return !getField(fieldList).checked ? "veuillez accepter les CGU" : false;
+  return !getField(fieldList).checked ? "Veuillez accepter les CGU" : false;
 }
 
-// objectif : check si le format est respecté
+// purpose : to determine if the field respect the regex points out in the map regexByField
 function isPatternRespected(fieldList) {
-  const regex = new Map([
+  const regexByField = new Map([
+    // key : id of the field
+    // value: an array with first --> regex, second --> error message
     ['firstName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
     ['lastName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
     ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,}\b/i, "Email non valide"]],
@@ -122,25 +138,26 @@ function isPatternRespected(fieldList) {
   ]);
 
   const field = getField(fieldList);
-  const regexField = regex.get(field.id);
+  const regexField = regexByField.get(field.id);
 
   return regexField[0].test(field.value) ? false : regexField[1];
 }
 
-function isOverEighteen (fieldList) {
+// purpose : to determine if the date is under 18 but over 126 years
+function isOverEighteen(fieldList) {
   const fieldDate = new Date(getField(fieldList).value);
   const overEighteenDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
   const overOneHundredDate = new Date(new Date()).setFullYear(new Date().getFullYear() - 126);
 
-  return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire' ;
+  return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire';
 }
 
-// objectif : check qu'au moins un bouton radio est sélectionné
+// purpose : to check is at least one radio bouton is selected
 function isCheckedRadio(fieldList) {
   let notChecked = true;
 
   fieldList.forEach((radio) => {
-    if (radio.checked == true) {
+    if (radio.checked === true) {
       notChecked = false;
     }
   });
@@ -148,39 +165,33 @@ function isCheckedRadio(fieldList) {
   return notChecked ? "Veuillez choisir un tournoi" : false;
 }
 
-// objectif : check si le champs n'est pas vide
+/* purpose : to check if the field is empty, 
+the propriety "required" has to be on the imput, 
+can be call with checkboxes */
 function isEmpty(fieldList) {
-  return getField(fieldList).value == "" ? "ce champ est obligatoire" : false;
+  return getField(fieldList).validity.valueMissing ? "ce champ est obligatoire" : false;
 }
 
-// objectif : renvoie le premier élément du tableau passé en argument
+// purpose : return first element of the  array in argument
 function getField(fieldList) {
   return field = fieldList[0];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// objectif : ajouter et afficher message d'erreur
+// purpose : to add and to display error message on the div passes in arguments
 function setDataError(div, message) {
   div.setAttribute('data-error', message);
   div.setAttribute('data-error-visible', true);
 }
 
-// objectif : supprimer message d'erreur
+// purpose : to delete error message on the div passes in arguments
 function deleteDataError(div) {
   div.setAttribute('data-error-visible', false);
 }
 
-// objectif : vérifier qu'il y a aucun message d'erreur pour valider formulaire
-function validationForm() {
-  const formData = document.querySelectorAll(".formData");
-  let isValid = true;
-
-  formData.forEach((div) => {
-    if (div.getAttribute('data-error-visible') === 'true') {
-      isValid = false;
-    }
-  });
-
-  return isValid;
-} 
+// purpose : to set the height to the div passes in argument as the same as the form's height
+function setHeightConfirmation(window) {
+  const formHeight = document.getElementById("bookingGameEvent").offsetHeight;
+  document.querySelector(window).style.height = formHeight + 'px';
+}
