@@ -1,9 +1,11 @@
+// Modifies the CSS class of the element with the ID "header" to make the navigation responsive
 function editNav() {
   var header = document.getElementById("header");
 
   header.className === "header" ? header.className += " responsive" : header.className = "header";
 }
 
+// Initializes the modal events
 modalEvents();
 
 function modalEvents() {
@@ -12,69 +14,73 @@ function modalEvents() {
   const signupBtns = document.querySelectorAll(".btn--signup");
   const closeModalBtns = document.querySelectorAll(".close");
 
-  // launch modal event
+  // Adds an event listener to each signup button to launch the modal display
   signupBtns.forEach((btn) => btn.addEventListener("click", () => {
     lauchDiv(modalSection);
     lauchDiv(".content--form-body");
     document.getElementById("firstName").focus();
   }));
-
-  // close modal with cross 
+  // Adds an event listener to each close button to close the modal
   closeModalBtns.forEach((btn) => btn.addEventListener("click", () => {
     closeDiv(modalSection);
     closeDiv(".content--confirmation");
   }));
 }
 
-// add class with "display: block" on div 
+// Adds the "show" class to the element to display the div
 function lauchDiv(div) {
-  document.querySelector(div).className += " show";
+  document.querySelector(div).classList.add("show");
 }
 
-// remove class with "display: block" on div
+// Removes the "show" class from the element to hide the div
 function closeDiv(div) {
   document.querySelector(div).classList.remove("show");
 }
 
+// Initializes the form events
 formEvent();
 
 function formEvent() {
   const form = document.querySelector("#bookingGameEvent");
 
-  // lauch validation form bookingGameEvent
+  // Adds an event listener for the "submit" event of the form
   form.addEventListener('submit', (event) => {
 
+    // Map containing the validation functions for each form field
     const fieldsToValidate = new Map([
-      // key : name field, 
-      // value : an array of all functions to call to validate field
+      // Key : field name, 
+      // Value: an array of validation functions to call for the field
       ['firstName', [isEmpty, isPatternRespected]],
       ['lastName', [isEmpty, isPatternRespected]],
       ['email', [isEmpty, isPatternRespected]],
       ['birthDate', [isEmpty, isOverEighteen]],
       ['numberGameJoin', [isPatternRespected]],
       ['location', [isCheckedRadio]],
-      ['checkboxCGU', [isCheckedCheckbox]]
+      ['checkboxCGU', [isCGUChecked]]
     ]);
 
+    // Map containing the actions to be performed after the form is validated
     const callWindowsFct = new Map([
-      // key : class of window, 
-      // value : function to execute on the window 
+      // Key: window class, 
+      // Value: function to execute on the window
       ['.content--form-body', closeDiv],
       ['.content--confirmation', lauchDiv]
     ]);
 
     event.preventDefault();
 
-    // set the height of the confirmation div as the same as the form
+    // Sets the height of the confirmation div to match the form's height
     document.querySelector('.content--confirmation').style.height = form.offsetHeight + 'px';
 
+    // Validates the form by calling the validateForm function
     validateForm(fieldsToValidate, callWindowsFct, form);
   });
 }
 
-/* purpose : to validate the form, needs a map with the functions to call by inputs' name, 
-a map with the functions to call after the validation succeed, 
-and the form that has to be reset */
+/*
+  Validates the form by performing individual field validation,
+  executes the specified actions after successful validation, and resets the form
+*/
 function validateForm(mapFieldsAndFctsForValidation, mapActionsAfterFormValidated, form) {
   
   if (validationFields(mapFieldsAndFctsForValidation) === 0) {
@@ -87,9 +93,11 @@ function validateForm(mapFieldsAndFctsForValidation, mapActionsAfterFormValidate
   }
 }
 
-/* purpose : to call all the functions for each field pointed out in mapFielsAndFctsForValidation,
-             to display the error messages send by the validation's functions
-return the number of error found */
+/*
+  Performs validation for each field specified in the mapFieldsAndFctsForValidation,
+  displays error messages returned by the validation functions,
+  and returns the numberof errors found
+*/
 function validationFields(mapFieldsAndFctsForValidation) {
   let errors = 0;
 
@@ -117,20 +125,22 @@ function validationFields(mapFieldsAndFctsForValidation) {
   return (errors);
 }
 
-//////////////////// validation's functions \\\\\\\\\\\\\\\\\\\\\\\\\\
-/* Search for errors 
-if one is find they return a specific error message else they return false as in "did not find any error" */
+//////////////////// Validation functions \\\\\\\\\\\\\\\\\\\\\\\\\\
+/* 
+  Search for errors 
+  If an error is found, it returns a specific error message; otherwise, it returns false as the answer to "is there an error?" 
+*/
 
-// purpose : to check if the checkbox CGU is selected
-function isCheckedCheckbox(fieldList) {
+// Checks if the CGU checkbox is selected
+function isCGUChecked(fieldList) {
   return !getField(fieldList).checked ? "Veuillez accepter les CGU" : false;
 }
 
-// purpose : to determine if the field respect the regex points out in the map regexByField
+// Determines if the field matches the regex specified in the regexByField map
 function isPatternRespected(fieldList) {
   const regexByField = new Map([
-    // key : id of the field
-    // value: an array with first --> regex, second --> error message
+    // Key: field ID
+    // Value: an array with the first element as regex, and the second element as an error message
     ['firstName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
     ['lastName', [/^[A-Za-zÀ-ÖØ-öø-ÿ\-\'\ ]{2,}$/, "Il faut renseigner 2 caractères minimum"]],
     ['email', [/\b[\w\.-]+@[\w\.-]+\.\w{2,}\b/i, "Email non valide"]],
@@ -143,7 +153,7 @@ function isPatternRespected(fieldList) {
   return regexField[0].test(field.value) ? false : regexField[1];
 }
 
-// purpose : to determine if the date is under 18 but over 126 years
+// Determines if the date is over 18 but under 126 years
 function isOverEighteen(fieldList) {
   const fieldDate = new Date(getField(fieldList).value);
   const overEighteenDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
@@ -152,7 +162,7 @@ function isOverEighteen(fieldList) {
   return fieldDate < overEighteenDate && fieldDate > overOneHundredDate ? false : 'Il faut être majeur pour s\'inscrire';
 }
 
-// purpose : to check is at least one radio bouton is selected
+// Checks if at least one radio button is selected
 function isCheckedRadio(fieldList) {
   let notChecked = true;
 
@@ -165,27 +175,29 @@ function isCheckedRadio(fieldList) {
   return notChecked ? "Veuillez choisir un tournoi" : false;
 }
 
-/* purpose : to check if the field is empty, 
-the propriety "required" has to be on the imput, 
-can be call with checkboxes */
+/* 
+  Checks if the field is empty,
+  the "required" attribute must be set on the input,
+  can be used with checkboxes 
+*/
 function isEmpty(fieldList) {
   return getField(fieldList).validity.valueMissing ? "ce champ est obligatoire" : false;
 }
 
-// purpose : return first element of the  array in argument
+// Returns the first element of the array in the argument
 function getField(fieldList) {
-  return field = fieldList[0];
+  return fieldList[0];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// purpose : to add and to display error message on the div passes in arguments
+// Adds and displays an error message on the specified div
 function setDataError(div, message) {
   div.setAttribute('data-error', message);
   div.setAttribute('data-error-visible', true);
 }
 
-// purpose : to delete error message on the div passes in arguments
+// Deletes the error message from the specified div
 function deleteDataError(div) {
   div.setAttribute('data-error-visible', false);
 }

@@ -1,9 +1,11 @@
+<!-- Game On - Reservation HTML file -->
+<!-- This file contains the structure and layout of the Game On reservation webpage -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
-  <title>Reservation</title>
+  <title>Game On - Réservation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,6 +13,8 @@
 </head>
 
 <body>
+  <!-- Header section -->
+  <!-- Includes the logo and navigation menu -->
   <header class="header" id="header">
 
     <div class="header__logo">
@@ -28,6 +32,8 @@
     </nav>
   </header>
 
+  <!-- Hero section -->
+  <!-- Displays the main headline, description, and signup button -->
   <section class="hero-section">
     <div class="hero-section__content">
       <h1 class="hero-section__headline">Marathon national<br>de jeux vidéos </h1>
@@ -42,38 +48,53 @@
     <button class="btn btn--signup">je m'inscris</button>
   </section>
 
+  <!-- Modal section -->
   <section class="modal-section">
+
+    <!-- Form Section -->
+    <!-- Contains the form for user registration -->
     <div class="content content--form-body">
       <span class="closing-cross close"></span>
       <form id="bookingGameEvent" action="index.html" method="GET" novalidate>
 
+        <!-- Form validation -->
+        <!-- Each form field is labeled and has specific input requirements -->
+
+        <!-- First Name input -->
         <div class="formData">
           <label class="text-label" for="firstName">Prénom</label><br>
           <input autofocus class="text-control" type="text" id="firstName" name="firstName" minlength="2"
             required /><br>
         </div>
 
+        <!-- Last Name input -->
         <div class="formData">
           <label class="text-label" for="lastName">Nom</label><br>
           <input class="text-control" type="text" id="lastName" name="lastName" minlength="2" required /><br>
         </div>
 
+        <!-- Email input -->
         <div class="formData">
           <label class="text-label" for="email">E-mail</label><br>
           <input class="text-control" type="email" id="email" name="email" required /><br>
         </div>
 
+        <!-- Birthdate input -->
         <div class="formData">
           <label class="text-label" for="birthDate">Date de naissance</label><br>
           <input class="text-control" type="date" id="birthDate" name="birthDate" required /><br>
         </div>
 
+        <!-- Number of GameOn tournaments attended input -->
         <div class="formData">
-          <label class="text-label" for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+          <label class="text-label" for="numberGameJoin">À combien de tournois GameOn avez-vous déjà participé
+            ?</label><br>
           <input type="number" class="text-control" id="numberGameJoin" name="numberGameJoin" min="0" max="99"
             required /><br>
         </div>
 
+        <!-- Location selection -->
+        <!-- Users can choose their preferred tournament location -->
         <div class="formData">
           <legend class="text-label">A quel tournoi souhaitez-vous participer cette année ?</legend>
           <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
@@ -113,6 +134,8 @@
           </label>
         </div>
 
+        <!-- Terms and conditions checkbox -->
+        <!-- Checkbox for accepting the terms and conditions -->
         <div class="formData cb-CGU-newsLetter">
           <input class="checkbox-input" type="checkbox" id="checkboxCGU" name="checkboxCGU" required />
           <label class="cb-CGU-newsLetter-label" for="checkboxCGU">
@@ -121,6 +144,8 @@
           </label>
         </div>
 
+        <!-- Newsletter checkbox -->
+        <!-- Checkbox for subscribing to event notifications -->
         <div class="formData cb-CGU-newsLetter">
           <input class="checkbox-input" type="checkbox" id="checkboxNewsLetter" />
           <label class="cb-CGU-newsLetter-label" for="checkboxNewsLetter">
@@ -129,10 +154,14 @@
           </label>
         </div>
 
+        <!-- Submit button -->
+        <!-- Button to submit the form -->
         <input class="btn btn--form " type="submit" value="C'est parti" />
       </form>
     </div>
 
+    <!-- Confirmation section -->
+    <!-- Appears after successful form submission -->
     <div class="content content--confirmation">
       <span class="closing-cross close"></span>
       <p>
@@ -144,11 +173,16 @@
   </section>
   </hero>
 
+  <!-- Footer -->
+  <!-- With copyright information -->
   <footer>
     <p class="copyrights">
       Copyright 2014 - 2022, GameOn Inc.
     </p>
   </footer>
+
+  <!-- JavaScript file -->
+  <!-- Modal functionality -->
   <script src="modal.js"></script>
 </body>
 
