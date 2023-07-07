@@ -131,11 +131,6 @@ function validationFields(mapFieldsAndFctsForValidation) {
   If an error is found, it returns a specific error message; otherwise, it returns false as the answer to "is there an error?" 
 */
 
-// Checks if the CGU checkbox is selected
-function isCGUChecked(fieldList) {
-  return !getField(fieldList).checked ? "Veuillez accepter les CGU" : false;
-}
-
 // Determines if the field matches the regex specified in the regexByField map
 function isPatternRespected(fieldList) {
   const regexByField = new Map([
@@ -182,6 +177,11 @@ function isCheckedRadio(fieldList) {
 */
 function isEmpty(fieldList) {
   return getField(fieldList).validity.valueMissing ? "ce champ est obligatoire" : false;
+}
+
+// Checks if the CGU checkbox is selected
+function isCGUChecked(fieldList) {
+  return !isEmpty(fieldList) ? false : "Veuillez accepter les CGU";
 }
 
 // Returns the first element of the array in the argument
