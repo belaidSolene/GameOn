@@ -2,7 +2,7 @@
 function editNav() {
   var header = document.getElementById("header");
 
-  header.className === "header" ? header.className += " responsive" : header.className = "header";
+  header.className === "header" ? header.className += " nav-responsive" : header.className = "header";
 }
 
 // Initializes the modal events
@@ -112,7 +112,6 @@ function validationFields(mapFieldsAndFctsForValidation) {
         msgErreur.push(response);
       }
     });
-
 
     if (msgErreur.length >= 1) {
       setDataError(getField(fields).parentNode, msgErreur[0]);

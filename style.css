@@ -10,6 +10,7 @@
   padding: 0;
 }
 
+
 /* Landing Page */
 body {
   margin: 0;
@@ -29,6 +30,7 @@ p {
 img {
   padding-right: 1rem;
 }
+
 
 /* Buttons */
 .btn {
@@ -103,6 +105,7 @@ img {
   color: #ff0000;
 }
 
+
 /* Hero Section */
 .hero-section {
   max-height: 93vh;
@@ -174,9 +177,7 @@ footer {
 }
 
 
-
 /* Modal Section */
-
 /* Style for the background overlay of the modal */
 .modal-section {
   display: none;
@@ -207,7 +208,7 @@ footer {
 }
 
 
-.content--confirmation p{
+.content--confirmation p {
   height: 90%;
   width: 100%;
 
@@ -231,7 +232,7 @@ label {
 }
 
 .text-label {
-  margin : 11px 0 7px;
+  margin: 11px 0 7px;
 }
 
 input {
@@ -249,8 +250,12 @@ input {
   height: 48px;
 }
 
-/* error message appears only with data-error-visible attribute in 
-formData div + input border red*/
+/* 
+  Error Message Styling
+
+  The error message is displayed only when the "data-error-visible" attribute is set to "true" in the formData div, 
+  and the input border color is set to red
+*/
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.5em;
@@ -272,8 +277,7 @@ formData div + input border red*/
   border: 2px solid #e54858;
 }
 
-/* Checkbox */
-
+/* Checkbox Styling */
 /* Hides the default checkbox input */
 .checkbox-input {
   display: none;
@@ -291,10 +295,11 @@ formData div + input border red*/
   margin-top: 11px;
 }
 
-/* Custom Checkbox Styling */
-
-/* Styles the custom-made checkboxes /
-/ Adds borders and dimensions to the checkboxes */
+/* Custom Checkbox */
+/*
+  Styles the custom-made checkboxes
+  Adds borders and dimensions to the checkboxes 
+*/
 .cb-tournament-label .checkbox-icon,
 .cb-CGU-newsLetter-label .checkbox-icon {
   display: block;
@@ -392,10 +397,10 @@ formData div + input border red*/
 
 
 
-
-
 /* Tablet Format */
 @media screen and (max-width: 800px) {
+
+  /* Hero Section */
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -438,6 +443,8 @@ formData div + input border red*/
     padding: 12px 35px;
   }
 
+
+  /* Footer Section */
   .copyrights {
     margin-top: 50px;
     text-align: center;
@@ -447,28 +454,35 @@ formData div + input border red*/
 
 /* Smartphone Format */
 @media screen and (max-width: 768px) {
-  
+
+  /* Buttons */
+  .btn--signup {
+    font-size: 20px;
+  }
+
+
+  /* Header Section */
   .header__logo {
     margin: 17px 10px 0;
   }
-  
+
   img {
     height: 25px;
   }
 
-  .header.responsive {
+  .header.nav-responsive {
     position: relative;
   }
 
-  .header__nav{
+  .header__nav {
     width: 100%;
     float: none;
   }
 
-  .header.responsive .header__nav {
+  .header.nav-responsive .header__nav {
     float: right;
   }
-  
+
   .header a {
     display: none;
   }
@@ -479,57 +493,66 @@ formData div + input border red*/
     font-size: 15px;
   }
 
-  .header.responsive .icon {
+  .header.nav-responsive .icon {
     position: absolute;
     width: auto;
     right: 0;
     top: 0;
   }
 
-  .header.responsive a {
+  .header.nav-responsive a {
     float: none;
     font-size: 15px;
     display: block;
     text-align: left;
   }
 
-    .hero-section {
-      margin: 25px;
-    }
 
-    .hero-section__headline { 
-      font-size: 2rem;
-      font-weight: 600;
-    }
+  /* Hero Section */
+  .hero-section {
+    margin: 25px;
+  }
 
-    .hero-section__text {
-      font-size: 1rem;
-      padding: 0;
-      width: auto;
-    }
+  .hero-section__headline {
+    font-size: 2rem;
+    font-weight: 600;
+  }
 
-    .hero-section__content {
-      padding: 0;
-      min-width: 0;
-    }
+  .hero-section__text {
+    font-size: 1rem;
+    padding: 0;
+    width: auto;
+  }
 
-    .btn--signup {
-      font-size: 20px;
-    }
+  .hero-section__content {
+    padding: 0;
+    min-width: 0;
+  }
 
-    .modal-section {
-      background-color: rgba(26, 39, 156, 0);
-    }
 
-    .content {
-      top: 52px;
-    }
+  /* Modal Section */
+  .content {
+    top: 52px;
+  }
 
-    .text-label {
-      font-size: 16px;
-    }
+  .text-label {
+    font-size: 16px;
+  }
 }
 
+
+/* 
+  Modal Background Visibility on Small Screens
+  No modal background when the form is the width of the screen 
+*/
+@media screen and (max-width: 500px) {
+  .modal-section {
+    background-color: transparent;
+  }
+}
+
+
+/* Keyframes */
 @keyframes formOpen {
   from {
     opacity: 0;
