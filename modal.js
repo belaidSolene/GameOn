@@ -56,7 +56,7 @@ function formEvent() {
       ['birthDate', [isEmpty, isOverEighteen]],
       ['numberGameJoin', [isPatternRespected]],
       ['location', [isCheckedRadio]],
-      ['checkboxCGU', [isCGUChecked]]
+      ['checkboxCGU', [isCheckedCGU]]
     ]);
 
     // Map containing the actions to be performed after the form is validated
@@ -175,11 +175,11 @@ function isCheckedRadio(fieldList) {
   can be used with checkboxes 
 */
 function isEmpty(fieldList) {
-  return getField(fieldList).validity.valueMissing ? "ce champ est obligatoire" : false;
+  return getField(fieldList).validity.valueMissing ? "Ce champ est obligatoire" : false;
 }
 
 // Checks if the CGU checkbox is selected
-function isCGUChecked(fieldList) {
+function isCheckedCGU(fieldList) {
   return !isEmpty(fieldList) ? false : "Veuillez accepter les CGU";
 }
 
